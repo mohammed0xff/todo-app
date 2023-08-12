@@ -16,7 +16,7 @@
                 <td>{{t.id}}</td>
                 <td>{{t.description}}</td>
                 <td>{{t.createdAt}}</td>
-                <td><input [checked]="t.isCompleted" id="myCheckbox" type="checkbox"></td>
+                <td><input (change)="onCheck(i)" [checked]="t.isCompleted" id="myCheckbox" type="checkbox"></td>
             </tr>
         </tbody>
     </table>
