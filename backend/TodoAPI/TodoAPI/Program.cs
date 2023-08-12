@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-Dictionary<int, Task> TaskDict = new();
+Dictionary<int, Task> TaskDict = new(); 
 
 // adding 10 tasks to our dictionary
 for (int i = 1; i <= 10; i++)
@@ -21,6 +21,18 @@ for (int i = 1; i <= 10; i++)
 }
 
 builder.Services.AddSingleton(TaskDict);
+
+builder.Services.AddCors(opts =>
+{
+    opts.AddDefaultPolicy(builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
 
 var app = builder.Build();
@@ -33,9 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+app.UseCors();
 
 app.Run();
