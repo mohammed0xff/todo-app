@@ -1,1 +1,23 @@
-<p>tasklist works!</p>
+<div class="container">
+
+    <h1>Tasks List</h1>
+
+    <table >
+        <thead>
+            <tr>
+                <th scope="col">Task Id</th>
+                <th scope="col">Description</th>
+                <th scope="col">Creation Date</th>
+                <th scope="col">Is Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of tasks; index as i">
+                <td>{{t.id}}</td>
+                <td>{{t.description}}</td>
+                <td>{{t.createdAt}}</td>
+                <td><input [checked]="t.isCompleted" id="myCheckbox" type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
