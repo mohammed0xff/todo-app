@@ -32,3 +32,10 @@ h1 {
   padding: 10px;
 }
 
+.toggle-completed {
+  width: 20px;
+  height: 20px;
+  margin-left: 30px;
+}
+
+
