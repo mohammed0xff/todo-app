@@ -11,7 +11,7 @@ namespace TodoAPI.Entities
         [Required]
         [StringLength(100)]
         public string Description { get; set; }
-        public string CreatedAt { get; } = DateTime.Now.ToString("dd/mm/yyyy hh:mm:tt"); // tt for AM/PM
+        public string CreatedAt { get; } = DateTime.Now.ToString("dd/MM/yyyy hh:mm:tt"); // tt for AM/PM
         public bool IsCompleted { get; set; }
         
         public Task(string description)
