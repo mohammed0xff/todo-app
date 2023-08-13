@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TodoAPI.Models;
 using TodoAPI.Services;
 
 namespace TodoAPI.Controllers
@@ -23,9 +24,11 @@ namespace TodoAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Entities.Task> Add(string description)
+        public ActionResult<Entities.Task> Add( 
+            [FromBody] TaskRequestModel taskModel
+            )
         {
-            var task = _taskService.CreateTask(description);
+            var task = _taskService.CreateTask(taskModel.Description);
             
             return CreatedAtAction(nameof(Add), task);
         }
