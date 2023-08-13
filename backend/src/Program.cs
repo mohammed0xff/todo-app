@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using Task = TodoAPI.Entities.Task;
+using Microsoft.EntityFrameworkCore;
+using TodoAPI.Data.DBContext;
+using TodoAPI.Data.DBInitializer;
+using TodoAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +14,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-Dictionary<int, Task> TaskDict = new(); 
-
-// adding 10 tasks to our dictionary
-for (int i = 1; i <= 10; i++)
+builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    var task = new Task($"Task Number : {i}");
-    TaskDict[task.Id] = task;
-}
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    if (builder.Environment.IsDevelopment())
+        options.EnableDetailedErrors().EnableSensitiveDataLogging();
+});
 
-builder.Services.AddSingleton(TaskDict);
+builder.Services.AddScoped<TaskService>();
 
 builder.Services.AddCors(opts =>
 {
@@ -49,4 +50,5 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseCors();
 
+await app.InitDataAsync();
 app.Run();

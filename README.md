@@ -19,7 +19,7 @@ Most of the features i have in mind rn are focused on the frontend side. Since i
 
 Here are some features that would definitely take our app to the next level! 
 
-- [ ] having data persestence.
+- [x] having data persistence.
 - [ ] adding and removing tasks from the list.
 - [ ] changing the ordering of our tasks by dragging them up or down the list. 
 - [ ] having multiple lists each of with a title that discripes the kind of tasks that it's going to hold.
