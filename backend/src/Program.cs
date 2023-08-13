@@ -21,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         options.EnableDetailedErrors().EnableSensitiveDataLogging();
 });
 
+builder.Services.AddScoped<TaskService>();
+
 builder.Services.AddCors(opts =>
 {
     opts.AddDefaultPolicy(builder =>
