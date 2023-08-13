@@ -11,7 +11,7 @@ namespace TodoAPI.Controllers
         private readonly TaskService _taskService;
         public TasksController(
             TaskService taskService
-            )
+            )   
         {
             _taskService = taskService;
         }
@@ -20,6 +20,14 @@ namespace TodoAPI.Controllers
         public IEnumerable<Entities.Task> Get()
         {
             return _taskService.GetAllTasks();
+        }
+
+        [HttpPost]
+        public ActionResult<Entities.Task> Add(string description)
+        {
+            var task = _taskService.CreateTask(description);
+            
+            return CreatedAtAction(nameof(Add), task);
         }
 
         [HttpPut("toggle-completed/{id}")]
@@ -33,6 +41,21 @@ namespace TodoAPI.Controllers
 
             task.IsCompleted = !task.IsCompleted;
             _taskService.UpdateTask(task);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var task = _taskService.GetTaskById(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            _taskService.DeleteTask(task);
 
             return Ok();
         }
