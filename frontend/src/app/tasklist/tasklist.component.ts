@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../constants/Task';
 import { TaskService } from '../services/TaskService'
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-tasklist',
@@ -32,6 +33,14 @@ export class TasklistComponent implements OnInit {
     const taskId = this.tasks[index].id;
     this.taskService.DeleteTask(taskId).subscribe(() => {
       this.tasks.splice(index, 1);
+    });
+  }
+  
+  onSubmit(form: NgForm) {
+    console.log(form.value.description);
+    this.taskService.AddTask(form.value.description).subscribe((res) => {
+      this.tasks.push(res);
+      form.reset();
     });
   }
 }

@@ -1,6 +1,14 @@
 <div class="container">
 
     <h1>Task List</h1>
+    
+    <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
+        <div class="form-group">
+            <label for="task">Add Task : </label>
+            <input ngModel required type="text" class="form-control" id="task" placeholder="Task Description" name="description" />
+            <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
 
     <table class="table table-hover">
         <thead>
