@@ -27,4 +27,11 @@ export class TasklistComponent implements OnInit {
       this.tasks[index].isCompleted = !this.tasks[index].isCompleted;
     });
   }
+  
+  onDelete(index: number) {
+    const taskId = this.tasks[index].id;
+    this.taskService.DeleteTask(taskId).subscribe(() => {
+      this.tasks.splice(index, 1);
+    });
+  }
 }

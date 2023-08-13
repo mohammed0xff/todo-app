@@ -9,6 +9,7 @@
                 <th scope="col">Description</th>
                 <th scope="col">Creation Date</th>
                 <th scope="col">Is Completed</th>
+                <th scope="col">Remove</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
                 <td>{{t.description}}</td>
                 <td>{{t.createdAt}}</td>
                 <td><input (change)="onCheck(i)" [checked]="t.isCompleted" class="toggle-completed" type="checkbox"></td>
+                <td><button (click)="onDelete(i)" type="button" class="btn-close" aria-label="Close"></button></td>
             </tr>
         </tbody>
     </table>

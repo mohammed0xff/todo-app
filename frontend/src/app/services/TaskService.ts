@@ -19,4 +19,9 @@ export class TaskService {
   ToggleCompleted(taskId:number) :Observable<any> {
     return this.http.put(`${environment.apiUrl}/tasks/toggle-completed/${taskId}`, null);
   }
+
+  DeleteTask(taskId: number) :Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/tasks/${taskId}`);
+  }
+
 }
