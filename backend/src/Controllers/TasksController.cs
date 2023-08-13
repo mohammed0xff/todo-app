@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TodoAPI.Models;
 using TodoAPI.Services;
 
 namespace TodoAPI.Controllers
@@ -11,7 +12,7 @@ namespace TodoAPI.Controllers
         private readonly TaskService _taskService;
         public TasksController(
             TaskService taskService
-            )
+            )   
         {
             _taskService = taskService;
         }
@@ -20,6 +21,16 @@ namespace TodoAPI.Controllers
         public IEnumerable<Entities.Task> Get()
         {
             return _taskService.GetAllTasks();
+        }
+
+        [HttpPost]
+        public ActionResult<Entities.Task> Add( 
+            [FromBody] TaskRequestModel taskModel
+            )
+        {
+            var task = _taskService.CreateTask(taskModel.Description);
+            
+            return CreatedAtAction(nameof(Add), task);
         }
 
         [HttpPut("toggle-completed/{id}")]
@@ -33,6 +44,21 @@ namespace TodoAPI.Controllers
 
             task.IsCompleted = !task.IsCompleted;
             _taskService.UpdateTask(task);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var task = _taskService.GetTaskById(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            _taskService.DeleteTask(task);
 
             return Ok();
         }
