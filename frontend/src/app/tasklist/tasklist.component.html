@@ -1,12 +1,15 @@
 <div class="container">
 
-    <h1>Task List</h1>
+    <h1 class="row-cols-1">Task List</h1>
     
     <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
-        <div class="form-group">
-            <label for="task">Add Task : </label>
-            <input ngModel required type="text" class="form-control" id="task" placeholder="Task Description" name="description" />
-            <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">Add</button>
+        <div class="form-group row">
+            <div class="col-md-10">
+                <input ngModel required type="text" class="form-control" id="task" placeholder="Add Task" name="description" />
+            </div>
+            <div class="col-md-2">
+                <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">Add</button>
+            </div>
         </div>
     </form>
 
