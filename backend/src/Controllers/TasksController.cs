@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TodoAPI.Services;
 
 namespace TodoAPI.Controllers
 {
@@ -7,32 +8,31 @@ namespace TodoAPI.Controllers
     [Route("api/[controller]")]
     public class TasksController : ControllerBase
     {
-        private readonly Dictionary<int, Entities.Task> _taskDict;
+        private readonly TaskService _taskService;
         public TasksController(
-            Dictionary<int, Entities.Task> TaskDict
+            TaskService taskService
             )
         {
-            _taskDict = TaskDict;
+            _taskService = taskService;
         }
 
-        // GET: api/<TasksController>
         [HttpGet]
         public IEnumerable<Entities.Task> Get()
         {
-            return _taskDict.Values;
+            return _taskService.GetAllTasks();
         }
 
-        // PUT api/<TasksController>/5
         [HttpPut("toggle-completed/{id}")]
         public IActionResult Put(int id)
         {
-            if (!_taskDict.ContainsKey(id))
-            {
+            var task = _taskService.GetTaskById(id);
+            
+            if(task == null) {
                 return NotFound();
             }
 
-            var task = _taskDict[id];
             task.IsCompleted = !task.IsCompleted;
+            _taskService.UpdateTask(task);
 
             return Ok();
         }
