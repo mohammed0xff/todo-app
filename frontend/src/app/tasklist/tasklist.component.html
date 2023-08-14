@@ -19,16 +19,10 @@
         <button class="btn {{ getButtonStyle('incomplete') }}" (click)="filterTasks('incomplete')">Incomplete</button>
     </div>
 
-
     <!-- ref: https://material.angular.io/components/table/overview -->
     
     <mat-table class="task-table" [dataSource]="displayedTasks" cdkDropList (cdkDropListDropped)="OnDrop($event)">
-        
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef >Task Id</mat-header-cell>
-            <mat-cell class="table-cell" *matCellDef="let task">{{ task.id }}</mat-cell>
-        </ng-container>
-        
+
         <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef >Description</mat-header-cell>
             <mat-cell class="table-cell" *matCellDef="let task" >

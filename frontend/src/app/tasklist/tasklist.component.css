@@ -19,6 +19,15 @@ mat-header-row {
   margin-left: 5px;
 }
 
+.mat-column{
+  align-items: center;
+}
+
+.mat-column-description {
+  text-align: center;
+  flex: 1 1 30%;
+}
+
 .toggle-completed {
   width: 20px;
   height: 20px;

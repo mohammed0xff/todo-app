@@ -14,7 +14,7 @@ export class TasklistComponent implements OnInit {
   tasks: Task[] = [];
   displayedTasks: Task[] = [];
   filterType:string = "all";
-  displayedColumns:string[] = ['id', 'description', 'createdAt', 'isCompleted', 'remove'];
+  displayedColumns:string[] = ['description', 'createdAt', 'isCompleted', 'remove'];
   
   constructor(private taskService: TaskService) {
   }
