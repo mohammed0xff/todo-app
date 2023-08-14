@@ -25,9 +25,14 @@ namespace TodoAPI.Controllers
 
         [HttpPost]
         public ActionResult<Entities.Task> Add( 
-            [FromBody] TaskRequestModel taskModel
+            [FromBody] TaskRequestModel taskModel 
             )
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var task = _taskService.CreateTask(taskModel.Description);
             
             return CreatedAtAction(nameof(Add), task);
