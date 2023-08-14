@@ -21,7 +21,8 @@ Here are some features that would definitely take our app to the next level!
 
 - [x] having data persistence.
 - [x] adding and removing tasks from the list.
-- [x] changing the ordering of our tasks by dragging them up or down the list. 
+- [x] changing the ordering of our tasks by dragging them up or down the list.
+- [x] filtering tasks by `Is Completed` field in the UI. 
 - [ ] having multiple lists each of with a title that discripes the kind of tasks that it's going to hold.
 - [ ] task hierarchy, tasks can have child tasks. 
 
