@@ -12,6 +12,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class TasklistComponent implements OnInit {
   
   tasks: Task[] = [];
+  displayedTasks: Task[] = [];
+  filterType:string = "all";
   displayedColumns:string[] = ['id', 'description', 'createdAt', 'isCompleted', 'remove'];
   
   constructor(private taskService: TaskService) {
@@ -20,6 +22,7 @@ export class TasklistComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.GetTasks().subscribe((tasks) => {
       this.tasks = tasks;
+      this.filterTasks(this.filterType);
     });
   }
 
@@ -27,6 +30,10 @@ export class TasklistComponent implements OnInit {
     const taskId = task.id;
     this.taskService.ToggleCompleted(taskId).subscribe(() => {
       task.isCompleted = !task.isCompleted;
+      this.filterTasks(this.filterType);
+    });
+    this.tasks.forEach(t => {
+      console.log(t.isCompleted)
     });
   }
 
@@ -35,6 +42,7 @@ export class TasklistComponent implements OnInit {
     this.taskService.DeleteTask(taskId).subscribe(() => {
       // remove task from task array 
       this.tasks = this.tasks.filter((t) => t.id !== taskId);
+      this.filterTasks(this.filterType);
     });
   }
 
@@ -46,9 +54,9 @@ export class TasklistComponent implements OnInit {
     // figured out that we have to change the value of 
     // a memeber object to cuase the component to re render
     this.tasks = [...this.tasks, res]; // works fine
-    
     // if you see any better approach please let me know.
     
+    this.filterTasks(this.filterType);
     form.reset();
     });
   }
@@ -57,5 +65,26 @@ export class TasklistComponent implements OnInit {
     console.log(event.previousIndex, event.currentIndex);
     moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
     this.tasks = [...this.tasks];
+    this.filterTasks(this.filterType);
   }
+  
+  filterTasks(filterType: string) {
+    this.filterType = filterType;
+    switch(filterType){
+      case 'all' :
+        this.displayedTasks = this.tasks; 
+        break;
+      case 'complete':
+        this.displayedTasks = this.tasks.filter((task) => task.isCompleted);
+        break;
+      case 'incomplete':
+        this.displayedTasks = this.tasks.filter((task) => !task.isCompleted); 
+        break;
+    } 
+  }
+
+  getButtonStyle(filter:string){
+    return this.filterType === filter ? 'btn-primary' : 'btn-secondary'
+  }
+
 }

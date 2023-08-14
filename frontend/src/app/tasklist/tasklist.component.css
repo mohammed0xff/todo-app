@@ -9,7 +9,14 @@ mat-header-cell {
 
 mat-header-row {
   background-color: #B3D9FF;
-  color: #333;
+}
+
+.filter-tasks{
+  margin-top: 15px;
+}
+
+.filter-tasks .btn{
+  margin-left: 5px;
 }
 
 .toggle-completed {

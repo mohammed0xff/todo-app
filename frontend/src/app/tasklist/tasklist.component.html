@@ -13,9 +13,16 @@
         </div>
     </form>
     
+    <div class="filter-tasks">
+        <button class="btn {{ getButtonStyle('all') }}" (click)="filterTasks('all')">All</button>
+        <button class="btn {{ getButtonStyle('complete') }}" (click)="filterTasks('complete')">Complete</button>
+        <button class="btn {{ getButtonStyle('incomplete') }}" (click)="filterTasks('incomplete')">Incomplete</button>
+    </div>
+
+
     <!-- ref: https://material.angular.io/components/table/overview -->
     
-    <mat-table class="task-table" [dataSource]="tasks" cdkDropList (cdkDropListDropped)="OnDrop($event)">
+    <mat-table class="task-table" [dataSource]="displayedTasks" cdkDropList (cdkDropListDropped)="OnDrop($event)">
         
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef >Task Id</mat-header-cell>
