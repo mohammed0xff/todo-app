@@ -22,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<TaskListsService>();
 
 builder.Services.AddCors(opts =>
 {
