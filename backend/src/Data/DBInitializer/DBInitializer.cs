@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using TodoAPI.Data.DBContext;
+
 
 namespace TodoAPI.Data.DBInitializer
 {
@@ -25,14 +27,23 @@ namespace TodoAPI.Data.DBInitializer
 
             context.Database.EnsureCreated();
 
-            if (context.Tasks.Any()) return;
-            
-            context.Tasks.Add(new Entities.Task("Feed the cat"));
-            context.Tasks.Add(new Entities.Task("Do homework"));
-            context.Tasks.Add(new Entities.Task("Read a book"));
-            context.Tasks.Add(new Entities.Task("Catch a fly"));
-            context.Tasks.Add(new Entities.Task("Do nothing"));
+            if (context.TaskLists.Any()) return;
 
+            var list1 = new Entities.TaskList("Home") { 
+
+                Tasks = new List<Entities.Task>() {
+                    new Entities.Task("Feed the cat"),
+                    new Entities.Task("Do homework"),
+                    new Entities.Task("Read a book"),
+                    new Entities.Task("Catch a fly"),
+                    new Entities.Task("Do nothing"),
+                }
+            };
+
+            var list2 = new Entities.TaskList("Work");
+            var list3 = new Entities.TaskList("Plants");
+
+            context.TaskLists.AddRange(new[] { list1, list2, list3 });
             context.SaveChanges();
         }
     }
