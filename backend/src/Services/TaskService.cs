@@ -15,9 +15,16 @@ namespace TodoAPI.Services
             _context = context;
         }
 
-        public Task CreateTask(string description)
+        public Task? CreateTask(int listId , string description)
         {
-            var task = new Task(description);
+            var list = _context.TaskLists.FirstOrDefault(l => l.Id == listId);
+            
+            if (list == null)
+            {
+                return null;
+            }
+
+            var task = new Task(description) { ListId = listId };
             _context.Tasks.Add(task);
             _context.SaveChanges();
             

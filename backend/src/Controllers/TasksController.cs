@@ -17,12 +17,6 @@ namespace TodoAPI.Controllers
             _taskService = taskService;
         }
 
-        [HttpGet]
-        public IEnumerable<Entities.Task> Get()
-        {
-            return _taskService.GetAllTasks();
-        }
-
         [HttpPost]
         public ActionResult<Entities.Task> Add( 
             [FromBody] TaskRequestModel taskModel 
@@ -33,7 +27,7 @@ namespace TodoAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var task = _taskService.CreateTask(taskModel.Description);
+            var task = _taskService.CreateTask(taskModel.ListId, taskModel.Description);
             
             return CreatedAtAction(nameof(Add), task);
         }
