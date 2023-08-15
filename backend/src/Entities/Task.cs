@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace TodoAPI.Entities
 {
@@ -9,6 +10,10 @@ namespace TodoAPI.Entities
         public string CreatedAt { get; set; } =
             DateTime.Now.ToString("dd/MM/yyyy hh:mm:tt"); // tt for AM/PM
         public bool IsCompleted { get; set; }
+        public int ListId { get; init; }
+        
+        [JsonIgnore]
+        public TaskList TaskList { get; set; } = null!;
 
         public Task(string description)
         {

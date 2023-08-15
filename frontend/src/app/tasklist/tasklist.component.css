@@ -34,14 +34,6 @@ mat-header-row {
   margin-left: 30px;
 }
 
-.container {
-  max-width: 900px;
-  margin-top: 30px;
-  padding: 15px;
-  background-color: #E6F3FF;
-  border-radius: 10px;
-  margin-bottom: 50px;
-}
 
 /* ref: https://material.angular.io/cdk/drag-drop/overview */
 

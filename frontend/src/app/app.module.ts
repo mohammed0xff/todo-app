@@ -8,12 +8,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { TasklistComponent } from './tasklist/tasklist.component';
+import { ListsComponent } from './lists/lists.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasklistComponent
+    TasklistComponent,
+    ListsComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,8 @@ import { TasklistComponent } from './tasklist/tasklist.component';
     FormsModule,
     DragDropModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

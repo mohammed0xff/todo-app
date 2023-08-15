@@ -1,0 +1,22 @@
+<div class="lists">
+
+  <h1> Lists </h1>
+  
+  <form (ngSubmit)="onSubmit(newListForm)" #newListForm="ngForm">
+    <div class="form-group row">
+      <div class="col-sm-8">
+        <input ngModel required type="text" class="form-control" id="list" placeholder="Add New List" name="title" />
+      </div>
+      <div class="col-sm-4">
+        <button [disabled]="newListForm.invalid" id="submitButton" type="submit" class="btn btn-primary">+</button>
+      </div>
+    </div>
+  </form>
+  
+  <div class="container col">
+    <div *ngFor="let t of lists; index as i" (click)="onListSelect(i)" class="list {{getListStyle(i)}}" > 
+      {{t.title}} 
+    </div>
+  </div>
+
+</div>
