@@ -1,59 +1,60 @@
 <div class="container">
 
-    <h1>Task List</h1>
-    
-    <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
-        <div class="form-group row">
-            <div class="col-md-10">
-                <input ngModel required type="text" class="form-control" id="task" placeholder="Add Task" name="description" />
-            </div>
-            <div class="col-md-2">
-                <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">Add</button>
-            </div>
-        </div>
-    </form>
-    
-    <div class="filter-tasks">
-        <button class="btn {{ getButtonStyle('all') }}" (click)="filterTasks('all')">All</button>
-        <button class="btn {{ getButtonStyle('complete') }}" (click)="filterTasks('complete')">Complete</button>
-        <button class="btn {{ getButtonStyle('incomplete') }}" (click)="filterTasks('incomplete')">Incomplete</button>
+  <h1>Task List</h1>
+  
+  <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
+    <div class="form-group row">
+      <div class="col-md-10">
+        <input ngModel required type="text" class="form-control" id="task" placeholder="Add Task" name="description" />
+      </div>
+      <div class="col-md-2">
+        <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">Add</button>
+      </div>
     </div>
+  </form>
+  
+  <div class="filter-tasks">
+    <button class="btn {{ getButtonStyle('all') }}" (click)="filterTasks('all')">All</button>
+    <button class="btn {{ getButtonStyle('complete') }}" (click)="filterTasks('complete')">Complete</button>
+    <button class="btn {{ getButtonStyle('incomplete') }}" (click)="filterTasks('incomplete')">Incomplete</button>
+  </div>
 
-    <!-- ref: https://material.angular.io/components/table/overview -->
+  <!-- ref: https://material.angular.io/components/table/overview -->
+  
+  <mat-table class="task-table" [dataSource]="displayedTasks" cdkDropList (cdkDropListDropped)="OnDrop($event)">
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef >Description</mat-header-cell>
+      <mat-cell class="table-cell" *matCellDef="let task" >
+          {{ task.description }}
+      </mat-cell>
+    </ng-container>
     
-    <mat-table class="task-table" [dataSource]="displayedTasks" cdkDropList (cdkDropListDropped)="OnDrop($event)">
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef >Creation Date</mat-header-cell>
+      <mat-cell class="table-cell" *matCellDef="let task">
+          {{ task.createdAt }}
+      </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="isCompleted">
+      <mat-header-cell *matHeaderCellDef >Is Completed</mat-header-cell>
+      <mat-cell class="table-cell" *matCellDef="let task">
+          <mat-checkbox (change)="onCheck(task)" [checked]="task.isCompleted" class="toggle-completed" />
+      </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef>Remove</mat-header-cell>
+      <mat-cell class="table-cell" *matCellDef="let task" >
+        <button (click)="onDelete(task)" type="button" class="btn-close" aria-label="Close"></button>
+      </mat-cell>
+    </ng-container>
 
-        <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef >Description</mat-header-cell>
-            <mat-cell class="table-cell" *matCellDef="let task" >
-                {{ task.description }}
-            </mat-cell>
-        </ng-container>
-        
-        <ng-container matColumnDef="createdAt">
-            <mat-header-cell *matHeaderCellDef >Creation Date</mat-header-cell>
-            <mat-cell class="table-cell" *matCellDef="let task">
-                {{ task.createdAt }}
-            </mat-cell>
-        </ng-container>
-        
-        <ng-container matColumnDef="isCompleted">
-            <mat-header-cell *matHeaderCellDef >Is Completed</mat-header-cell>
-            <mat-cell class="table-cell" *matCellDef="let task">
-                <mat-checkbox (change)="onCheck(task)" [checked]="task.isCompleted" class="toggle-completed" />
-            </mat-cell>
-        </ng-container>
-        
-        <ng-container matColumnDef="remove">
-            <mat-header-cell *matHeaderCellDef>Remove</mat-header-cell>
-            <mat-cell class="table-cell" *matCellDef="let task" >
-              <button (click)="onDelete(task)" type="button" class="btn-close" aria-label="Close"></button>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
-        
-        <mat-row class="test" class="task-dragging" *matRowDef="let task; columns: displayedColumns" cdkDrag></mat-row>
-        
-    </mat-table>
+    <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
+    
+    <mat-row class="test" class="task-dragging" *matRowDef="let task; columns: displayedColumns" cdkDrag></mat-row>
+    
+  </mat-table>
 </div>
+

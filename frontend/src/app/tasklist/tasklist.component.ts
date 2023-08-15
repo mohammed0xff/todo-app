@@ -3,6 +3,8 @@ import { Task } from '../constants/Task';
 import { TaskService } from '../services/TaskService';
 import { NgForm } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { SharedDataService  } from '../services/SharedDataService';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tasklist',
@@ -12,18 +14,29 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class TasklistComponent implements OnInit {
   
   tasks: Task[] = [];
+  listId:number = 1;
+
   displayedTasks: Task[] = [];
-  filterType:string = "all";
-  displayedColumns:string[] = ['description', 'createdAt', 'isCompleted', 'remove'];
+  filterType: string = "all";
+  displayedColumns: string[] = ['description', 'createdAt', 'isCompleted', 'remove'];
+  private subscription: Subscription;
   
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private sharedDataService:SharedDataService ) {
+    this.subscription = this.sharedDataService.listId$.subscribe(id => {
+      this.taskService.GetTasks(id).subscribe((tasks) => {
+        this.tasks = tasks;
+        this.listId = id;
+        this.filterTasks(this.filterType);
+      });
+    });
   }
 
   ngOnInit(): void {
-    this.taskService.GetTasks().subscribe((tasks) => {
-      this.tasks = tasks;
-      this.filterTasks(this.filterType);
-    });
+
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onCheck(task: Task) {
@@ -48,7 +61,7 @@ export class TasklistComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log(form.value.description);
-    this.taskService.AddTask(form.value.description).subscribe((res) => {
+    this.taskService.AddTask(this.listId, form.value.description).subscribe((res) => {
     // this.tasks.push(res); // doesnt work -component does not re render-
     
     // figured out that we have to change the value of 
@@ -86,5 +99,4 @@ export class TasklistComponent implements OnInit {
   getButtonStyle(filter:string){
     return this.filterType === filter ? 'btn-primary' : 'btn-secondary'
   }
-
 }
