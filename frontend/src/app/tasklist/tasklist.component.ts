@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { SharedDataService  } from '../services/SharedDataService';
 import { Subscription } from 'rxjs';
+import { TaskListService } from '../services/TaskListService';
 
 @Component({
   selector: 'app-tasklist',
@@ -14,14 +15,16 @@ import { Subscription } from 'rxjs';
 export class TasklistComponent implements OnInit {
   
   tasks: Task[] = [];
-  listId:number = 1;
-
+  listId: number = 1;
   displayedTasks: Task[] = [];
   filterType: string = "all";
   displayedColumns: string[] = ['description', 'createdAt', 'isCompleted', 'remove'];
   private subscription: Subscription;
   
-  constructor(private taskService: TaskService, private sharedDataService:SharedDataService ) {
+  constructor(
+    private taskService: TaskService, 
+    private sharedDataService: SharedDataService,
+    private taskListService: TaskListService) {
     this.subscription = this.sharedDataService.listId$.subscribe(id => {
       this.taskService.GetTasks(id).subscribe((tasks) => {
         this.tasks = tasks;

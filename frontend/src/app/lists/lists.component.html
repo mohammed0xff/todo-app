@@ -14,11 +14,20 @@
   </form>
   
   <div class="container col">
-    <div *ngFor="let t of lists; index as i" (click)="onListSelect(i)" class="list {{getListStyle(i)}}" > 
-      {{t.title}} 
+
+    <div *ngFor="let l of lists; index as i" (click)="onListSelect(i)" class="list-item row" [class.selected-list]="selectedListIdx === i">
+      <div class="col-md-10">
+        {{ l.title }}
+      </div>
+    <div class="col-md-2">
+      <ng-container *ngIf="selectedListIdx === i">
+          <span class="trash-can bi bi-trash" (click)="deleteList()" ></span>
+      </ng-container>
     </div>
   </div>
-
+  </div>
+  <!-- ref: https://material.angular.io/components/paginator/examples -->
+  
   <mat-paginator #paginator
   class="demo-paginator"
   (page)="handlePageEvent($event)"

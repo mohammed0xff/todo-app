@@ -26,7 +26,7 @@ export class TaskListService {
     );
   }
 
-  DeleteTask(listId: number) :Observable<any> {
+  DeleteList(listId: number) :Observable<any> {
     return this.http.delete(`${environment.apiUrl}/tasklists/${listId}`);
   }
 

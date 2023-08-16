@@ -70,4 +70,10 @@ export class ListsComponent {
     this.paginateLists();
   }
 
+  deleteList(){
+    this.taskListService.DeleteList(this.lists[this.selectedListIdx].id).subscribe(()=>{
+      this.paginateLists();
+    });
+  }
+  
 }
