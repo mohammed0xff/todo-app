@@ -44,9 +44,10 @@ mat-header-row {
   border: solid 2px #ccc;
   min-height: 60px;
   display: block;
-  background: #E6F3FF;
   border-radius: 4px;
   overflow: hidden;
+  max-height: 500px;
+  overflow-y: auto; 
 }
 
 .table-cell {
@@ -59,7 +60,6 @@ mat-header-row {
   justify-content: space-around;
   box-sizing: border-box;
   cursor: move;
-  background: #CCE5FF;
   font-size: 14px;
 }
 
@@ -76,7 +76,6 @@ mat-header-row {
 }
 
 /* glitching
-
 .task-dragging:not(.cdk-drag-placeholder){
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
@@ -84,5 +83,16 @@ mat-header-row {
 .task-table.cdk-drop-list-dragging .table-cell:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+*/
 
- */
+/* https://stackoverflow.com/a/51764539 */
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+
+.container{
+  height: 660px;
+}

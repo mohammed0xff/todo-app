@@ -1,34 +1,40 @@
-
-.lists{
-    height: min-content;
-    margin: 20px 20px 50px 20px;
-}
-
-.lists .col{
-    margin-bottom: 20px;
-}
-
-.list-item{
-    background-color: #89CFF0;
-    margin-top: 5px;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 h1 {
     text-align: center;
     font-size: 2rem;
 }
 
+.lists-container{
+    margin-top: 20px;
+}
+
+.lists-container .col{
+    margin-bottom: 20px;
+}
+
+.list-item{
+    /* background-color: #89CFF0; */
+    padding: 10px;
+    cursor: pointer;
+}
+
+.list-item:hover:not(.selected-list){
+    /* background-color: #6dbee3; */
+    background-color: #f1f0f0;
+}
+
 .selected-list{
-    background-color: #318CE7;
+    /* background-color: #318CE7; */
+    background-color: #ccc;
     cursor: default;
 }
 
 .trash-can{
     font-size: 20px; 
     color: rgb(0, 0, 0);
-    height: 30px;
     cursor: pointer;
 }
+
+.trash-can:hover {
+    color: rgb(131, 8, 8);
+}   
+

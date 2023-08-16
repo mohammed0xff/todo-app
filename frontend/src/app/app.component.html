@@ -1,12 +1,20 @@
+<nav class="navbar navbar-expand bar">
+  <div class="navbar-collapse">
+    <h4 class="nav-title">To Do</h4>
+  </div>
+</nav>
 
-<div class="row">
-    
-  <div class="col-md-3">
-    <app-lists />
-  </div>
-  
-  <div class="container col-md-9">
-    <app-tasklist /> 
-  </div>
+<div class="container-fluid">
+  <mat-drawer-container class="drawer">
+    <button mat-button class="show-lists" type="button" 
+      (click)="drawer.toggle();listsShown=!listsShown">
+      {{listsShown ? "Hide Lists" : "Show Lists"}}
+    </button>
+    <mat-drawer #drawer class="sidenav" mode="side">
+      <app-lists></app-lists>
+    </mat-drawer>
+    <div class="sidenav-content">
+      <app-tasklist></app-tasklist>
+    </div>
+  </mat-drawer-container>
 </div>
-    

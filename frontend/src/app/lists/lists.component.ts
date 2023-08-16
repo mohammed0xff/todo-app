@@ -41,7 +41,7 @@ export class ListsComponent {
       this.selectedListIdx = 0;
       const firstList = this.lists[0];
       if(firstList === null || firstList === undefined) return;
-      this.sharedDataService.setListId(firstList.id);
+      this.sharedDataService.setList(firstList);
     })
   }
 
@@ -56,7 +56,7 @@ export class ListsComponent {
 
   onListSelect(listIdx: number){
     let list = this.lists[listIdx];
-    this.sharedDataService.setListId(list.id);
+    this.sharedDataService.setList(list);
     this.selectedListIdx = listIdx;
   }
 

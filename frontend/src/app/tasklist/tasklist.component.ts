@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { SharedDataService  } from '../services/SharedDataService';
 import { Subscription } from 'rxjs';
-import { TaskListService } from '../services/TaskListService';
+import { TaskList } from '../constants/TaskList';
 
 @Component({
   selector: 'app-tasklist',
@@ -15,20 +15,19 @@ import { TaskListService } from '../services/TaskListService';
 export class TasklistComponent implements OnInit {
   
   tasks: Task[] = [];
-  listId: number = 1;
+  list: TaskList = {id : 0, title : ""};
   displayedTasks: Task[] = [];
   filterType: string = "all";
-  displayedColumns: string[] = ['description', 'createdAt', 'isCompleted', 'remove'];
+  displayedColumns: string[] = ['isCompleted', 'description', 'createdAt', 'remove'];
   private subscription: Subscription;
   
   constructor(
     private taskService: TaskService, 
-    private sharedDataService: SharedDataService,
-    private taskListService: TaskListService) {
-    this.subscription = this.sharedDataService.listId$.subscribe(id => {
-      this.taskService.GetTasks(id).subscribe((tasks) => {
+    private sharedDataService: SharedDataService) {
+    this.subscription = this.sharedDataService.list$.subscribe(list => {
+      this.list = list;
+      this.taskService.GetTasks(this.list.id).subscribe((tasks) => {
         this.tasks = tasks;
-        this.listId = id;
         this.filterTasks(this.filterType);
       });
     });
@@ -64,7 +63,7 @@ export class TasklistComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log(form.value.description);
-    this.taskService.AddTask(this.listId, form.value.description).subscribe((res) => {
+    this.taskService.AddTask(this.list.id, form.value.description).subscribe((res) => {
     // this.tasks.push(res); // doesnt work -component does not re render-
     
     // figured out that we have to change the value of 
