@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using TodoAPI.Models;
+using TodoAPI.ApiModels.Requests;
 using TodoAPI.Services;
 
 namespace TodoAPI.Controllers
