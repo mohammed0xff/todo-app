@@ -17,9 +17,9 @@ export class ListsComponent {
   lists: TaskList[] = []
   selectedListIdx: number = 0;
   
-  length :number = 0; 
-  pageIndex :number = 0;
-  pageSize :number = 5;
+  length: number = 0; 
+  pageIndex: number = 0;
+  pageSize: number = 5;
   pageEvent: PageEvent | undefined ;
   
   constructor(
@@ -38,7 +38,7 @@ export class ListsComponent {
       this.length = res.totalRecords;
       this.pageIndex = res.pageNumber - 1;
       this.pageSize = res.pageSize;
-      
+      this.selectedListIdx = 0;
       const firstList = this.lists[0];
       if(firstList === null || firstList === undefined) return;
       this.sharedDataService.setListId(firstList.id);
