@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TodoAPI.Models
+namespace TodoAPI.ApiModels.Requests
 {
     public class TaskListRequestModel
     {

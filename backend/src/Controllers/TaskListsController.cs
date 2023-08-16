@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TodoAPI.ApiModels.Requests;
+using TodoAPI.ApiModels.Response;
 using TodoAPI.Entities;
-using TodoAPI.Models;
 using TodoAPI.Services;
 
 namespace TodoAPI.Controllers
@@ -19,9 +20,22 @@ namespace TodoAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TaskList> Get()
+        public PaginatedResponse<TaskList> Get(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 5
+            )
         {
-            return _listService.GetAllLists();
+            var lists = _listService.GetPaginatedLists(pageNumber, pageSize);
+            int total = _listService.NoOfTotalRecords();
+            
+            var res = new PaginatedResponse<TaskList>() {
+                Data = lists,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalRecords = total
+            };
+
+            return res;
         }
 
         [HttpGet("{id}/tasks")]
