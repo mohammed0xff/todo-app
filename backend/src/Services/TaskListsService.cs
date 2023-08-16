@@ -35,9 +35,20 @@ namespace TodoAPI.Services
             return _context.TaskLists.FirstOrDefault(t => t.Id == id);
         }
 
-        public List<TaskList> GetAllLists()
+        public List<TaskList> GetPaginatedLists(int pageNumber, int pageSize)
         {
-            return _context.TaskLists.ToList();
+            if (pageNumber < 1 || pageSize < 1)
+                return new ();
+            
+            return _context.TaskLists
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public int NoOfTotalRecords()
+        {
+            return _context.TaskLists.Count();
         }
 
         public void UpdateList(TaskList task)
