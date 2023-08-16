@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Task } from '../constants/Task'
 import { TaskList } from '../constants/TaskList';
+import { PaginatedResponse } from '../constants/PaginatedResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ export class TaskListService {
 
   constructor(private http:HttpClient) { }
 
-  GetLists(): Observable<TaskList[]> {
-    return this.http.get<TaskList[]>(`${environment.apiUrl}/tasklists`);
+  GetLists(pageNumber: number, pageSize: number): Observable<PaginatedResponse<TaskList>> {
+    return this.http.get<PaginatedResponse<TaskList>>(
+      `${environment.apiUrl}/tasklists?pagenumber=${pageNumber}&pagesize=${pageSize}`
+      );
   }
 
   AddList(listTitle :string) :Observable<any> {
