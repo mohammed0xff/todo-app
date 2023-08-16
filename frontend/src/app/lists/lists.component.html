@@ -19,4 +19,17 @@
     </div>
   </div>
 
+  <mat-paginator #paginator
+  class="demo-paginator"
+  (page)="handlePageEvent($event)"
+  [disabled]="false"
+  [showFirstLastButtons]="true"
+  aria-label="Select page"
+  [hidePageSize]="true"
+  [length]="length"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  >
+</mat-paginator>
+
 </div>
