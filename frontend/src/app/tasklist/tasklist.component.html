@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h1>{{list.title}}</h1>
+  <h1>{{list.id !== -1 ? list.title : "_"}}</h1>
   
   <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
     <div class="form-group row">

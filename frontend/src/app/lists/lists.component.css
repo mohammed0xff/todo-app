@@ -5,6 +5,7 @@ h1 {
 
 .lists-container{
     margin-top: 20px;
+    overflow: hidden;
 }
 
 .lists-container .col{
@@ -12,6 +13,7 @@ h1 {
 }
 
 .list-item{
+    margin: 0px;
     /* background-color: #89CFF0; */
     padding: 10px;
     cursor: pointer;
@@ -19,17 +21,17 @@ h1 {
 
 .list-item:hover:not(.selected-list){
     /* background-color: #6dbee3; */
-    background-color: #f1f0f0;
+    background-color: #F5F5F5;
 }
 
 .selected-list{
     /* background-color: #318CE7; */
-    background-color: #ccc;
+    background-color: #d0e7fc;
     cursor: default;
 }
 
 .trash-can{
-    font-size: 20px; 
+    font-size: 18px; 
     color: rgb(0, 0, 0);
     cursor: pointer;
 }
@@ -38,3 +40,13 @@ h1 {
     color: rgb(131, 8, 8);
 }   
 
+.paginator{
+    position: sticky;
+}
+
+.form-group{
+    padding-left: 10px;
+    margin-top: 30px;
+    width: 100%;
+    justify-content: space-between;
+}

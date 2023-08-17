@@ -4,10 +4,10 @@
   
   <form (ngSubmit)="onSubmit(newListForm)" #newListForm="ngForm">
     <div class="form-group row">
-      <div class="col-sm-8">
+      <div class="col-md-10">
         <input ngModel required type="text" class="form-control" id="list" placeholder="Add New List" name="title" />
       </div>
-      <div class="col-sm-4">
+      <div class="col-md-2">
         <button [disabled]="newListForm.invalid" id="submitButton" type="submit" class="btn btn-primary">+</button>
       </div>
     </div>
@@ -31,7 +31,7 @@
   <!-- ref: https://material.angular.io/components/paginator/examples -->
   
   <mat-paginator #paginator
-  class="demo-paginator"
+  class="paginator"
   (page)="handlePageEvent($event)"
   [disabled]="false"
   [showFirstLastButtons]="true"

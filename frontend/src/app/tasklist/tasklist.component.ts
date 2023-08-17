@@ -26,6 +26,7 @@ export class TasklistComponent implements OnInit {
     private sharedDataService: SharedDataService) {
     this.subscription = this.sharedDataService.list$.subscribe(list => {
       this.list = list;
+      if(list.id == -1) return;
       this.taskService.GetTasks(this.list.id).subscribe((tasks) => {
         this.tasks = tasks;
         this.filterTasks(this.filterType);
@@ -62,7 +63,8 @@ export class TasklistComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value.description);
+    if(this.list.id == -1) return;
+    
     this.taskService.AddTask(this.list.id, form.value.description).subscribe((res) => {
     // this.tasks.push(res); // doesnt work -component does not re render-
     

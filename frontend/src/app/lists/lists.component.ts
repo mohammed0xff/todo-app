@@ -32,15 +32,16 @@ export class ListsComponent {
     this.paginateLists();
   }
   
-  paginateLists(){
+  paginateLists(selectedIdx: number = 0){
     this.taskListService.GetLists(this.pageIndex + 1, this.pageSize).subscribe(res => {
       this.lists = res.data;
       this.length = res.totalRecords;
       this.pageIndex = res.pageNumber - 1;
       this.pageSize = res.pageSize;
-      this.selectedListIdx = 0;
-      const firstList = this.lists[0];
-      if(firstList === null || firstList === undefined) return;
+      this.selectedListIdx = selectedIdx;
+      let firstList = this.lists[this.selectedListIdx];
+      if(firstList === null || firstList === undefined)
+        firstList = {id : -1, title : "" }; 
       this.sharedDataService.setList(firstList);
     })
   }
@@ -49,7 +50,9 @@ export class ListsComponent {
     this.taskListService.AddList(form.value.title).subscribe(res => {
       // go to last page where the new list just made exists
       this.pageIndex = Math.floor(this.length / this.pageSize ); 
-      this.paginateLists();
+      // the new list will be the result of total number mod page size 
+      let selectedIdx = this.length % this.pageSize;
+      this.paginateLists(selectedIdx);
       form.reset();
     })
   }
@@ -71,8 +74,19 @@ export class ListsComponent {
   }
 
   deleteList(){
-    this.taskListService.DeleteList(this.lists[this.selectedListIdx].id).subscribe(()=>{
-      this.paginateLists();
+    const deleteListId = this.lists[this.selectedListIdx].id;
+    
+    this.taskListService.DeleteList(deleteListId).subscribe(()=>{
+      if(this.selectedListIdx == 0 && this.pageIndex >= 1) {
+        // go to prev page, 0 elements left in this page 
+        this.pageIndex--;
+        this.paginateLists(this.pageSize - 1);
+      }else{
+        // stay but decrease selected list idx by 1
+        let listIdx = this.selectedListIdx == 0 ? 
+          0 : this.selectedListIdx - 1;
+        this.paginateLists(listIdx);
+      }
     });
   }
   
